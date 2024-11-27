@@ -4,16 +4,16 @@
     "description": "Simple HTML landing page with most common troubleshooting issues",
     "homepage": "https://sedovmik.github.io/troubleshooting-landing-page",
     "scripts": {
-      "start": "npx http-server src",
-      "lint": "eslint src/**/*.js",
-      "format": "prettier --write src/**/*.{html,css,js}",
-      "predeploy": "npm run lint && npm run format",
-      "deploy": "gh-pages -d src"
+        "start": "npx http-server src",
+        "lint": "eslint src/**/*.js",
+        "format": "prettier --write src/**/*.{html,css,js}",
+        "predeploy": "npm run lint && npm run format",
+        "deploy": "npx gh-pages -d src"
     },
     "devDependencies": {
-      "eslint": "^8.56.0",
-      "gh-pages": "^6.1.0",
-      "http-server": "^14.1.1",
-      "prettier": "^3.1.0"
+        "eslint": "^8.56.0",
+        "gh-pages": "^6.2.0",
+        "http-server": "^14.1.1",
+        "prettier": "^3.1.0"
     }
-  }
+}
