@@ -147,8 +147,8 @@
 
           // Get the code parameter
           const code = queryParams.code;
-          if (code && CODE_TO_SECTION[code]) {
-            const sectionId = CODE_TO_SECTION[code];
+          if (code) {
+            const sectionId = CODE_TO_SECTION[code] || 'unknown-issue';
             const section = document.getElementById(sectionId);
             const otherElements = section.querySelectorAll(':scope > :not(h2)');
 
@@ -398,6 +398,22 @@
           <li>Implemented saga pattern</li>
           <li>Added compensation event logging</li>
           <li>Integrated idempotency checks</li>
+        </ul>
+      </section>
+
+      <section id="unknown-issue" class="problem-section">
+        <h2>Issue Not Documented</h2>
+        <h3>Notice</h3>
+        <p>
+          The problem code you've provided doesn't have documented
+          troubleshooting steps in our knowledge base yet. Please reach out to
+          our technical team for assistance with this specific issue.
+        </p>
+        <h3>Next Steps</h3>
+        <ul>
+          <li>Create a detailed issue report in our ticketing system</li>
+          <li>Contact the development team in the #tech-support channel</li>
+          <li>Schedule a troubleshooting session with our engineers</li>
         </ul>
       </section>
     </div>
