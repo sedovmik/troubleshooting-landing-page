@@ -183,6 +183,72 @@
     <div class="container">
       <h1>Technical Problem Analysis Guide</h1>
 
+      <nav class="toc">
+        <style>
+          .toc {
+            background: var(--section-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: calc(var(--spacing-unit) * 2);
+            margin-bottom: calc(var(--spacing-unit) * 3);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+          }
+
+          .toc h2 {
+            font-size: 1.3rem;
+            margin-bottom: var(--spacing-unit);
+            color: var(--accent);
+          }
+
+          .toc ul {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.1rem;
+            padding: 0;
+          }
+
+          .toc li {
+            list-style: none;
+            padding: 0;
+          }
+
+          .toc li::before {
+            display: none;
+          }
+
+          .toc a {
+            color: var(--secondary-text);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+          }
+
+          .toc a:hover {
+            background: #f3f4f6;
+            color: var(--accent);
+          }
+
+          .toc a:active {
+            transform: translateY(1px);
+          }
+        </style>
+        <h2>Table of Contents</h2>
+        <ul>
+          <li><a href="?code=id112">Memory Leak in Connection Pool</a></li>
+          <li><a href="?code=id113">Race Condition in Cache</a></li>
+          <li><a href="?code=id114">Deadlock in Resource Manager</a></li>
+          <li><a href="?code=id115">Network Partition Recovery</a></li>
+          <li><a href="?code=id116">Database Connection Issues</a></li>
+          <li><a href="?code=id117">Cache Coherency Problems</a></li>
+          <li><a href="?code=id118">Load Balancer Health Checks</a></li>
+          <li><a href="?code=id119">Message Queue Processing</a></li>
+          <li><a href="?code=id120">API Rate Limiting</a></li>
+          <li><a href="?code=id121">Transaction Rollback Issues</a></li>
+        </ul>
+      </nav>
+
       <section id="memory-leak" class="problem-section">
         <h2>Memory Leak in Connection Pool Manager</h2>
         <h3>Problem Analysis</h3>
