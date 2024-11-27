@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Technical Problem Analysis Guide</title>
     <link rel="icon" href="data:," />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap"
-      rel="stylesheet"
-    />
     <style>
       :root {
         --primary-bg: #fafafa;
@@ -29,11 +23,7 @@
       }
 
       body {
-        font-family:
-          'Inter',
-          -apple-system,
-          BlinkMacSystemFont,
-          sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         line-height: 1.6;
         color: var(--primary-text);
         background: var(--primary-bg);
@@ -48,7 +38,7 @@
       h1,
       h2,
       h3 {
-        font-family: 'Space Grotesk', sans-serif;
+        font-family: sans-serif;
         font-weight: 700;
         line-height: 1.2;
       }
@@ -66,12 +56,14 @@
         padding: calc(var(--spacing-unit) * 2);
         margin-bottom: calc(var(--spacing-unit) * 2);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        scroll-margin-top: 50px;
       }
 
       .problem-section h2 {
         font-size: 1.5rem;
         margin-bottom: var(--spacing-unit);
         color: var(--accent);
+        width: fit-content;
       }
 
       .problem-section h3 {
@@ -86,7 +78,7 @@
       }
 
       code {
-        font-family: 'Space Mono', monospace;
+        font-family: monospace;
         background: #f3f4f6;
         padding: 0.2em 0.4em;
         border-radius: 4px;
@@ -112,11 +104,6 @@
       }
     </style>
     <script type="module">
-      import {
-        annotate,
-        annotationGroup,
-      } from 'https://unpkg.com/rough-notation?module';
-
       // Mapping between codes and section IDs
       const CODE_TO_SECTION = {
         id112: 'memory-leak',
@@ -131,22 +118,24 @@
         id121: 'transaction',
       };
 
-      // Initialize query parameters object
-      let queryParams = {};
+      import {
+        annotate,
+        annotationGroup,
+      } from 'https://unpkg.com/rough-notation?module';
 
       document.addEventListener('DOMContentLoaded', () => {
         // Parse query parameters
         const queryString = window.location.search.slice(1);
         if (queryString) {
-          queryParams = Object.fromEntries(
+          let queryParams = Object.fromEntries(
             queryString.split('&').map(param => {
               const [key, value] = param.split('=');
               return [decodeURIComponent(key), decodeURIComponent(value || '')];
             })
           );
 
-          // Get the code parameter
           const code = queryParams.code;
+
           if (code) {
             const sectionId = CODE_TO_SECTION[code] || 'unknown-issue';
             const section = document.getElementById(sectionId);
@@ -167,8 +156,8 @@
                 type: 'bracket',
                 color: '#FF000066',
                 brackets: ['left', 'right'],
-                animationDuration: 1000,
-                iterations: 1,
+                animate: false,
+                strokeWidth: 2,
               });
 
               annotationHeading.show();
@@ -182,72 +171,6 @@
   <body>
     <div class="container">
       <h1>Technical Problem Analysis Guide</h1>
-
-      <nav class="toc">
-        <style>
-          .toc {
-            background: var(--section-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: calc(var(--spacing-unit) * 2);
-            margin-bottom: calc(var(--spacing-unit) * 3);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-          }
-
-          .toc h2 {
-            font-size: 1.3rem;
-            margin-bottom: var(--spacing-unit);
-            color: var(--accent);
-          }
-
-          .toc ul {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0.1rem;
-            padding: 0;
-          }
-
-          .toc li {
-            list-style: none;
-            padding: 0;
-          }
-
-          .toc li::before {
-            display: none;
-          }
-
-          .toc a {
-            color: var(--secondary-text);
-            text-decoration: none;
-            display: block;
-            padding: 0.5rem;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-          }
-
-          .toc a:hover {
-            background: #f3f4f6;
-            color: var(--accent);
-          }
-
-          .toc a:active {
-            transform: translateY(1px);
-          }
-        </style>
-        <h2>Table of Contents</h2>
-        <ul>
-          <li><a href="?code=id112">Memory Leak in Connection Pool</a></li>
-          <li><a href="?code=id113">Race Condition in Cache</a></li>
-          <li><a href="?code=id114">Deadlock in Resource Manager</a></li>
-          <li><a href="?code=id115">Network Partition Recovery</a></li>
-          <li><a href="?code=id116">Database Connection Issues</a></li>
-          <li><a href="?code=id117">Cache Coherency Problems</a></li>
-          <li><a href="?code=id118">Load Balancer Health Checks</a></li>
-          <li><a href="?code=id119">Message Queue Processing</a></li>
-          <li><a href="?code=id120">API Rate Limiting</a></li>
-          <li><a href="?code=id121">Transaction Rollback Issues</a></li>
-        </ul>
-      </nav>
 
       <section id="memory-leak" class="problem-section">
         <h2>Memory Leak in Connection Pool Manager</h2>
