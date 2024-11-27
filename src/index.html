@@ -1,298 +1,339 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Technical Problem Analysis Guide</title>
-    <link rel="icon" href="data:,">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --primary-bg: #fafafa;
-            --section-bg: #ffffff;
-            --primary-text: #1a1a1a;
-            --secondary-text: #4a4a4a;
-            --accent: #2563eb;
-            --border: #e5e7eb;
-            --spacing-unit: 1rem;
-        }
+      :root {
+        --primary-bg: #fafafa;
+        --section-bg: #ffffff;
+        --primary-text: #1a1a1a;
+        --secondary-text: #4a4a4a;
+        --accent: #2563eb;
+        --border: #e5e7eb;
+        --spacing-unit: 1rem;
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            color: var(--primary-text);
-            background: var(--primary-bg);
-            padding: calc(var(--spacing-unit) * 2);
-        }
+      body {
+        font-family:
+          'Inter',
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        line-height: 1.6;
+        color: var(--primary-text);
+        background: var(--primary-bg);
+        padding: calc(var(--spacing-unit) * 2);
+      }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
 
-        h1, h2, h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700;
-            line-height: 1.2;
-        }
+      h1,
+      h2,
+      h3 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+        line-height: 1.2;
+      }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: calc(var(--spacing-unit) * 3);
-            color: var(--accent);
-        }
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: calc(var(--spacing-unit) * 3);
+        color: var(--accent);
+      }
 
-        .problem-section {
-            background: var(--section-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: calc(var(--spacing-unit) * 2);
-            margin-bottom: calc(var(--spacing-unit) * 2);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
+      .problem-section {
+        background: var(--section-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: calc(var(--spacing-unit) * 2);
+        margin-bottom: calc(var(--spacing-unit) * 2);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
 
-        .problem-section h2 {
-            font-size: 1.5rem;
-            margin-bottom: var(--spacing-unit);
-            color: var(--accent);
-        }
+      .problem-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: var(--spacing-unit);
+        color: var(--accent);
+      }
 
-        .problem-section h3 {
-            font-size: 1.1rem;
-            margin: calc(var(--spacing-unit) * 1.5) 0 var(--spacing-unit);
-            color: var(--secondary-text);
-        }
+      .problem-section h3 {
+        font-size: 1.1rem;
+        margin: calc(var(--spacing-unit) * 1.5) 0 var(--spacing-unit);
+        color: var(--secondary-text);
+      }
 
-        .problem-section p {
-            margin-bottom: var(--spacing-unit);
-            color: var(--secondary-text);
-        }
+      .problem-section p {
+        margin-bottom: var(--spacing-unit);
+        color: var(--secondary-text);
+      }
 
-        code {
-            font-family: 'Space Mono', monospace;
-            background: #f3f4f6;
-            padding: 0.2em 0.4em;
-            border-radius: 4px;
-            font-size: 0.9em;
-        }
+      code {
+        font-family: 'Space Mono', monospace;
+        background: #f3f4f6;
+        padding: 0.2em 0.4em;
+        border-radius: 4px;
+        font-size: 0.9em;
+      }
 
-        ul {
-            list-style-type: none;
-            padding-left: calc(var(--spacing-unit) * 1.5);
-        }
+      ul {
+        list-style-type: none;
+        padding-left: calc(var(--spacing-unit) * 1.5);
+      }
 
-        li {
-            position: relative;
-            margin-bottom: calc(var(--spacing-unit) * 0.5);
-        }
+      li {
+        position: relative;
+        margin-bottom: calc(var(--spacing-unit) * 0.5);
+      }
 
-        li::before {
-            content: "•";
-            color: var(--accent);
-            position: absolute;
-            left: calc(var(--spacing-unit) * -1);
-            font-weight: bold;
-        }
+      li::before {
+        content: '•';
+        color: var(--accent);
+        position: absolute;
+        left: calc(var(--spacing-unit) * -1);
+        font-weight: bold;
+      }
     </style>
     <script type="module">
-        import { annotate, annotationGroup } from 'https://unpkg.com/rough-notation?module';
+      import {
+        annotate,
+        annotationGroup,
+      } from 'https://unpkg.com/rough-notation?module';
 
-        // Mapping between codes and section IDs
-        const CODE_TO_SECTION = {
-            'id112': 'memory-leak',
-            'id113': 'race-condition',
-            'id114': 'deadlock',
-            'id115': 'network-partition',
-            'id116': 'db-connection',
-            'id117': 'cache-coherency',
-            'id118': 'load-balancer',
-            'id119': 'message-queue',
-            'id120': 'api-rate',
-            'id121': 'transaction'
-        };
+      // Mapping between codes and section IDs
+      const CODE_TO_SECTION = {
+        id112: 'memory-leak',
+        id113: 'race-condition',
+        id114: 'deadlock',
+        id115: 'network-partition',
+        id116: 'db-connection',
+        id117: 'cache-coherency',
+        id118: 'load-balancer',
+        id119: 'message-queue',
+        id120: 'api-rate',
+        id121: 'transaction',
+      };
 
-        // Initialize query parameters object
-        let queryParams = {};
+      // Initialize query parameters object
+      let queryParams = {};
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // Parse query parameters
-            const queryString = window.location.search.slice(1);
-            if (queryString) {
-                queryParams = Object.fromEntries(
-                    queryString.split('&').map(param => {
-                        const [key, value] = param.split('=');
-                        return [
-                            decodeURIComponent(key), 
-                            decodeURIComponent(value || '')
-                        ];
-                    })
-                );
-                
-                // Get the code parameter
-                const code = queryParams.code;
-                if (code && CODE_TO_SECTION[code]) {
-                    const sectionId = CODE_TO_SECTION[code];
-                    const section = document.getElementById(sectionId);
-                    const otherElements = section.querySelectorAll(':scope > :not(h2)');
-                    
-                    if (section) {
-                        // Scroll section into view
-                        section.scrollIntoView({ behavior: 'smooth' });
-                        const heading = section.querySelector('h2');
-                        
-                        const annotationHeading = annotate(heading, { 
-                            type: 'highlight',
-                            color: '#FFD70066',
-                            animate: false
-                        });
+      document.addEventListener('DOMContentLoaded', () => {
+        // Parse query parameters
+        const queryString = window.location.search.slice(1);
+        if (queryString) {
+          queryParams = Object.fromEntries(
+            queryString.split('&').map(param => {
+              const [key, value] = param.split('=');
+              return [decodeURIComponent(key), decodeURIComponent(value || '')];
+            })
+          );
 
-                        const annotationSection = annotate(section, { 
-                            type: 'bracket',
-                            color: '#FF000066',
-                            brackets: ['left', 'right'],
-                            animationDuration: 1000,
-                            iterations: 1
-                        });
+          // Get the code parameter
+          const code = queryParams.code;
+          if (code && CODE_TO_SECTION[code]) {
+            const sectionId = CODE_TO_SECTION[code];
+            const section = document.getElementById(sectionId);
+            const otherElements = section.querySelectorAll(':scope > :not(h2)');
 
-                        annotationHeading.show();
-                        annotationSection.show();
-                    }
-                }
+            if (section) {
+              // Scroll section into view
+              section.scrollIntoView({ behavior: 'smooth' });
+              const heading = section.querySelector('h2');
+
+              const annotationHeading = annotate(heading, {
+                type: 'highlight',
+                color: '#FFD70066',
+                animate: false,
+              });
+
+              const annotationSection = annotate(section, {
+                type: 'bracket',
+                color: '#FF000066',
+                brackets: ['left', 'right'],
+                animationDuration: 1000,
+                iterations: 1,
+              });
+
+              annotationHeading.show();
+              annotationSection.show();
             }
-        });
+          }
+        }
+      });
     </script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Technical Problem Analysis Guide</h1>
+      <h1>Technical Problem Analysis Guide</h1>
 
-        <section id="memory-leak" class="problem-section">
-            <h2>Memory Leak in Connection Pool Manager</h2>
-            <h3>Problem Analysis</h3>
-            <p>Investigation reveals persistent memory growth during high-frequency connection cycling. Root cause traced to incomplete resource cleanup in error paths.</p>
-            <h3>Technical Resolution</h3>
-            <ul>
-                <li>Implemented RAII pattern for connection lifecycle management</li>
-                <li>Added explicit cleanup hooks in all error paths</li>
-                <li>Integrated memory pressure monitoring system</li>
-            </ul>
-        </section>
+      <section id="memory-leak" class="problem-section">
+        <h2>Memory Leak in Connection Pool Manager</h2>
+        <h3>Problem Analysis</h3>
+        <p>
+          Investigation reveals persistent memory growth during high-frequency
+          connection cycling. Root cause traced to incomplete resource cleanup
+          in error paths.
+        </p>
+        <h3>Technical Resolution</h3>
+        <ul>
+          <li>Implemented RAII pattern for connection lifecycle management</li>
+          <li>Added explicit cleanup hooks in all error paths</li>
+          <li>Integrated memory pressure monitoring system</li>
+        </ul>
+      </section>
 
-        <section id="race-condition"class="problem-section">
-            <h2>Race Condition in Cache Invalidation</h2>
-            <h3>Problem Analysis</h3>
-            <p>Concurrent cache updates during high-load scenarios lead to inconsistent state. Time-of-check to time-of-use vulnerability identified in validation logic.</p>
-            <h3>Technical Resolution</h3>
-            <ul>
-                <li>Implemented optimistic locking mechanism</li>
-                <li>Added version control for cache entries</li>
-                <li>Introduced atomic compare-and-swap operations</li>
-            </ul>
-        </section>
+      <section id="race-condition" class="problem-section">
+        <h2>Race Condition in Cache Invalidation</h2>
+        <h3>Problem Analysis</h3>
+        <p>
+          Concurrent cache updates during high-load scenarios lead to
+          inconsistent state. Time-of-check to time-of-use vulnerability
+          identified in validation logic.
+        </p>
+        <h3>Technical Resolution</h3>
+        <ul>
+          <li>Implemented optimistic locking mechanism</li>
+          <li>Added version control for cache entries</li>
+          <li>Introduced atomic compare-and-swap operations</li>
+        </ul>
+      </section>
 
-        <section id="deadlock" class="problem-section">
-            <h2>Deadlock in Resource Manager</h2>
-            <h3>Problem Analysis</h3>
-            <p>Cross-dependent resource acquisition creates circular wait conditions. Lock hierarchy violation detected in resource allocation sequence.</p>
-            <h3>Technical Resolution</h3>
-            <ul>
-                <li>Established strict lock ordering protocol</li>
-                <li>Implemented deadlock detection algorithm</li>
-                <li>Added timeout-based lock acquisition</li>
-            </ul>
-        </section>
+      <section id="deadlock" class="problem-section">
+        <h2>Deadlock in Resource Manager</h2>
+        <h3>Problem Analysis</h3>
+        <p>
+          Cross-dependent resource acquisition creates circular wait conditions.
+          Lock hierarchy violation detected in resource allocation sequence.
+        </p>
+        <h3>Technical Resolution</h3>
+        <ul>
+          <li>Established strict lock ordering protocol</li>
+          <li>Implemented deadlock detection algorithm</li>
+          <li>Added timeout-based lock acquisition</li>
+        </ul>
+      </section>
 
-        <section id="network-partition" class="problem-section">
-            <h2>Network Partition Recovery Failure</h2>
-            <h3>Problem Analysis</h3>
-            <p>System unable to restore consistency after network partitions heal. Split-brain scenario detected in distributed state management.</p>
-            <h3>Technical Resolution</h3>
-            <ul>
-                <li>Implemented Raft consensus algorithm</li>
-                <li>Added automatic leader election</li>
-                <li>Integrated conflict resolution mechanism</li>
-            </ul>
-        </section>
+      <section id="network-partition" class="problem-section">
+        <h2>Network Partition Recovery Failure</h2>
+        <h3>Problem Analysis</h3>
+        <p>
+          System unable to restore consistency after network partitions heal.
+          Split-brain scenario detected in distributed state management.
+        </p>
+        <h3>Technical Resolution</h3>
+        <ul>
+          <li>Implemented Raft consensus algorithm</li>
+          <li>Added automatic leader election</li>
+          <li>Integrated conflict resolution mechanism</li>
+        </ul>
+      </section>
 
-        <section id="db-connection" class="problem-section">
-            <h2>Database Connection Exhaustion</h2>
-            <h3>Problem Analysis</h3>
-            <p>Connection pool saturation during peak load periods. Investigation reveals connection leaks in exception handling paths.</p>
-            <h3>Technical Resolution</h3>
-            <ul>
-                <li>Implemented connection pooling with timeout</li>
-                <li>Added connection leak detection</li>
-                <li>Integrated circuit breaker pattern</li>
-            </ul>
-        </section>
+      <section id="db-connection" class="problem-section">
+        <h2>Database Connection Exhaustion</h2>
+        <h3>Problem Analysis</h3>
+        <p>
+          Connection pool saturation during peak load periods. Investigation
+          reveals connection leaks in exception handling paths.
+        </p>
+        <h3>Technical Resolution</h3>
+        <ul>
+          <li>Implemented connection pooling with timeout</li>
+          <li>Added connection leak detection</li>
+          <li>Integrated circuit breaker pattern</li>
+        </ul>
+      </section>
 
-        <section id="cache-coherency" class="problem-section">
-            <h2>Cache Coherency Issues</h2>
-            <h3>Problem Analysis</h3>
-            <p>Distributed cache nodes show inconsistent state. Write skew anomalies detected in multi-node operations.</p>
-            <h3>Technical Resolution</h3>
-            <ul>
-                <li>Implemented vector clock synchronization</li>
-                <li>Added conflict-free replicated data types</li>
-                <li>Integrated eventual consistency protocol</li>
-            </ul>
-        </section>
+      <section id="cache-coherency" class="problem-section">
+        <h2>Cache Coherency Issues</h2>
+        <h3>Problem Analysis</h3>
+        <p>
+          Distributed cache nodes show inconsistent state. Write skew anomalies
+          detected in multi-node operations.
+        </p>
+        <h3>Technical Resolution</h3>
+        <ul>
+          <li>Implemented vector clock synchronization</li>
+          <li>Added conflict-free replicated data types</li>
+          <li>Integrated eventual consistency protocol</li>
+        </ul>
+      </section>
 
-        <section id="load-balancer" class="problem-section">
-            <h2>Load Balancer Health Check Failures</h2>
-            <h3>Problem Analysis</h3>
-            <p>Intermittent false negatives in service health checks. TCP connection timeout patterns indicate network congestion.</p>
-            <h3>Technical Resolution</h3>
-            <ul>
-                <li>Implemented adaptive health check intervals</li>
-                <li>Added failure detection threshold</li>
-                <li>Integrated connection draining mechanism</li>
-            </ul>
-        </section>
+      <section id="load-balancer" class="problem-section">
+        <h2>Load Balancer Health Check Failures</h2>
+        <h3>Problem Analysis</h3>
+        <p>
+          Intermittent false negatives in service health checks. TCP connection
+          timeout patterns indicate network congestion.
+        </p>
+        <h3>Technical Resolution</h3>
+        <ul>
+          <li>Implemented adaptive health check intervals</li>
+          <li>Added failure detection threshold</li>
+          <li>Integrated connection draining mechanism</li>
+        </ul>
+      </section>
 
-        <section id="message-queue" class="problem-section">
-            <h2>Message Queue Processing Delays</h2>
-            <h3>Problem Analysis</h3>
-            <p>Message processing backlog during peak load. Consumer group rebalancing triggers cascade of processing delays.</p>
-            <h3>Technical Resolution</h3>
-            <ul>
-                <li>Implemented adaptive batch processing</li>
-                <li>Added back-pressure mechanism</li>
-                <li>Integrated parallel consumer pattern</li>
-            </ul>
-        </section>
+      <section id="message-queue" class="problem-section">
+        <h2>Message Queue Processing Delays</h2>
+        <h3>Problem Analysis</h3>
+        <p>
+          Message processing backlog during peak load. Consumer group
+          rebalancing triggers cascade of processing delays.
+        </p>
+        <h3>Technical Resolution</h3>
+        <ul>
+          <li>Implemented adaptive batch processing</li>
+          <li>Added back-pressure mechanism</li>
+          <li>Integrated parallel consumer pattern</li>
+        </ul>
+      </section>
 
-        <section id="api-rate" class="problem-section">
-            <h2>API Rate Limiting Bypass</h2>
-            <h3>Problem Analysis</h3>
-            <p>Rate limiting ineffective against distributed client requests. Token bucket algorithm bypass detected in request patterns.</p>
-            <h3>Technical Resolution</h3>
-            <ul>
-                <li>Implemented distributed rate limiting</li>
-                <li>Added client fingerprinting</li>
-                <li>Integrated adaptive rate adjustment</li>
-            </ul>
-        </section>
+      <section id="api-rate" class="problem-section">
+        <h2>API Rate Limiting Bypass</h2>
+        <h3>Problem Analysis</h3>
+        <p>
+          Rate limiting ineffective against distributed client requests. Token
+          bucket algorithm bypass detected in request patterns.
+        </p>
+        <h3>Technical Resolution</h3>
+        <ul>
+          <li>Implemented distributed rate limiting</li>
+          <li>Added client fingerprinting</li>
+          <li>Integrated adaptive rate adjustment</li>
+        </ul>
+      </section>
 
-        <section id="transaction" class="problem-section">
-            <h2>Transaction Rollback Failures</h2>
-            <h3>Problem Analysis</h3>
-            <p>Incomplete transaction rollbacks causing data inconsistency. Compensation transaction failures detected in distributed workflows.</p>
-            <h3>Technical Resolution</h3>
-            <ul>
-                <li>Implemented saga pattern</li>
-                <li>Added compensation event logging</li>
-                <li>Integrated idempotency checks</li>
-            </ul>
-        </section>
+      <section id="transaction" class="problem-section">
+        <h2>Transaction Rollback Failures</h2>
+        <h3>Problem Analysis</h3>
+        <p>
+          Incomplete transaction rollbacks causing data inconsistency.
+          Compensation transaction failures detected in distributed workflows.
+        </p>
+        <h3>Technical Resolution</h3>
+        <ul>
+          <li>Implemented saga pattern</li>
+          <li>Added compensation event logging</li>
+          <li>Integrated idempotency checks</li>
+        </ul>
+      </section>
     </div>
-</body>
+  </body>
 </html>

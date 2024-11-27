@@ -5,9 +5,8 @@
     "homepage": "https://sedovmik.github.io/troubleshooting-landing-page",
     "scripts": {
         "start": "npx http-server src",
-        "lint": "eslint src/**/*.js",
-        "format": "prettier --write src/**/*.{html,css,js}",
-        "predeploy": "npm run lint && npm run format",
+        "format": "prettier --write src/*.html",
+        "predeploy": "npm run format",
         "deploy": "npx gh-pages -d src"
     },
     "devDependencies": {
