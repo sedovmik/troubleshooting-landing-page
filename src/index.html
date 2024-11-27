@@ -103,7 +103,7 @@
         }
     </style>
     <script type="module">
-        import { annotate } from 'https://unpkg.com/rough-notation?module';
+        import { annotate, annotationGroup } from 'https://unpkg.com/rough-notation?module';
 
         // Mapping between codes and section IDs
         const CODE_TO_SECTION = {
@@ -141,20 +141,29 @@
                 if (code && CODE_TO_SECTION[code]) {
                     const sectionId = CODE_TO_SECTION[code];
                     const section = document.getElementById(sectionId);
+                    const otherElements = section.querySelectorAll(':scope > :not(h2)');
                     
                     if (section) {
                         // Scroll section into view
                         section.scrollIntoView({ behavior: 'smooth' });
                         const heading = section.querySelector('h2');
                         
-                        // Apply rough notation
-                        const annotation = annotate(heading, { 
+                        const annotationHeading = annotate(heading, { 
                             type: 'highlight',
-                            color: '#FFD70066', // Semi-transparent gold
-                            animationDuration: 1500
+                            color: '#FFD70066',
+                            animate: false
                         });
-                        
-                        annotation.show();
+
+                        const annotationSection = annotate(section, { 
+                            type: 'bracket',
+                            color: '#FF000066',
+                            brackets: ['left', 'right'],
+                            animationDuration: 1000,
+                            iterations: 1
+                        });
+
+                        annotationHeading.show();
+                        annotationSection.show();
                     }
                 }
             }
